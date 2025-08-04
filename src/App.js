@@ -1,21 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-
-const Home = () => <h2 className="text-center mt-10 text-2xl dark:text-white">Welcome to Home Page</h2>;
-const Products = () => <h2 className="text-center mt-10 text-2xl dark:text-white">Products Page</h2>;
-const Cart = () => <h2 className="text-center mt-10 text-2xl dark:text-white">Cart Page</h2>;
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Cart from './pages/Cart';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+        <div className="container mx-auto px-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
