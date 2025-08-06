@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useCart } from '../context/CartContext';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
+  const { addToCart } = useCart();
 
-  // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -23,17 +24,13 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  // ✅ Move useMemo BEFORE loading check
   const filteredProducts = useMemo(() => {
-    return products.filter(product => {
-      return (
-        product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (category === 'all' || product.category === category)
-      );
-    });
+    return products.filter(product =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (category === 'all' || product.category === category)
+    );
   }, [products, searchTerm, category]);
 
-  // ✅ Loading check AFTER hooks
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -84,7 +81,10 @@ const Products = () => {
             />
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">{product.title}</h2>
             <p className="text-yellow-500 font-bold mt-2">${product.price}</p>
-            <button className="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
+            <button
+              onClick={() => addToCart(product)}
+              className="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
+            >
               Add to Cart
             </button>
           </div>
