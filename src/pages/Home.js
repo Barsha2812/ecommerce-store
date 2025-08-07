@@ -1,11 +1,16 @@
-import React from 'react';
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <div className="text-center py-10">
-      <h1 className="text-4xl font-bold text-purple-600">Welcome to E-Shop!</h1>
-      <p className="text-lg text-gray-600 mt-4">Explore our amazing products.</p>
-    </div>
+    <motion.div
+      className="text-center py-20"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h1 className="text-4xl font-bold text-blue-600">Welcome to E-Shop!</h1>
+      <p className="text-xl mt-4">Your one-stop shop for cool products 🚀</p>
+    </motion.div>
   );
 };
 
